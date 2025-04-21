@@ -41,6 +41,12 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('post-detail', args=[str(self.id)])
+    
+    def display_category(self):
+        return ', '.join(category.name for category in self.category.all()[:3])
+    
+
+    display_category.short_description = 'Category'
 
 
 class Comment(models.Model):
@@ -55,6 +61,12 @@ class Comment(models.Model):
     
     def get_absolute_url(self):
         return reverse('comment-detail', args=[str(self.id)])
+    
+    def display_body(self):
+        return self.body[:30]
+    
+
+    display_body.short_description = 'View of Comment'
 
 
 class Author(models.Model):
