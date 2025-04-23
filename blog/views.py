@@ -1,5 +1,27 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Post, Comment
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the blog index.")
+def blog_index(request):
+    posts = Post.objects.all().order_by("-created_on")                                              # - in -created_on  reverses arrangment of objects by order_by
+    context = {
+        "posts": posts,
+    }
+    return render(request, "blog/index.html", context=context)
+
+def blog_category(request, category):
+    posts = Post.objects.filter(category__name__contains = category).order_by("-created_on")        # category__name coz many to many field
+    context = {
+        "category": category,
+        "posts": posts,
+    }
+    return render(request, "blog/category.html", context=context)
+
+def blog_detail(request, pk):
+    post = Post.objects.get(pk=pk)                                                                  # pk = primary key
+    comments = Comment.objects.filter(post=post)
+    context = {
+        "post": post,
+        "comments": comments,
+    }
+    
+    return render(request, "blog/detail.html", context)
