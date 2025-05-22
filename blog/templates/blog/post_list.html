@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>Blog List</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    {% if post_list %}
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    ({{post.author}})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no posts on the site.</p>
+    {% endif %}
+{% endblock page_content %}
