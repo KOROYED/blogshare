@@ -10,8 +10,8 @@
         {{ post.created_on.date }} | Categories:
         {% for category in post.category.all %}
             <a href="{% url 'blog_category' category.name %}">
-                {{ category.name }},
-            </a>
+                {{ category.name }}
+            </a>,
         {% endfor %}
     </small>
     <p>{{ post.body | linebreaks }}</p>

@@ -31,7 +31,7 @@ def blog_category(request, category):
 class PostListView(generic.ListView):
     model = Post
     context_object_name = "post_list"
-    queryset = Post.objects.filter(title__icontains='poe')[:5]                                      # Get 5 posts containing title 'poe'
+    #queryset = Post.objects.filter(title__icontains='poe')[:5]                                      # Get 5 posts containing title 'poe'
     template_name = 'posts/post_list.html'                                                          # Specify your own template name/location
 
 
