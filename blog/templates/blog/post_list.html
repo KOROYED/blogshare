@@ -7,14 +7,18 @@
 
 {% block page_content %}
     {% if post_list %}
-        <ul>
-            {% for post in post_list %}
-                <li>
-                    <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a>
-                    ({{post.author}})
-                </li>
-            {% endfor %}
-        </ul>
+        {% for post in post_list %}
+            <h3><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>                          {# urls.py #}
+            <small>
+                {{ post.created_on.date }} | Categories:
+                {% for category in post.category.all %}
+                    <a href="{% url 'blog_category' category.name %}">
+                        {{ category.name }},
+                    </a>
+                {% endfor %}
+            </small>
+            <p>{{ post.body | slice:":400" }}...</p>
+        {% endfor %}
     {% else %}
         <p>There are no posts on the site.</p>
     {% endif %}
