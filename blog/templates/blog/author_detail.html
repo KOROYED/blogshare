@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>{{ author.first_name }} {{ author.last_name }}</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    <a href="{% url 'blog_author_posts' author.pk author.pk %}">Author's posts</a>
+{% endblock page_content %}
