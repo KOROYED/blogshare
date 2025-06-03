@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post, Comment, Category
+from .models import Post, Category, Author
 from django.views import generic
 
 def blog_index(request):
@@ -23,12 +23,18 @@ class PostByCategoryListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
         return context
+    
 
 class PostListView(generic.ListView):
     model = Post
     context_object_name = "post_list"
     paginate_by = 2
     ordering = ["-created_on"]
+
+
+class AuthorListView(generic.ListView):
+    model = Author
+    context_object_name = "author_list"
 
 
 class PostDetailView(generic.DetailView):
