@@ -32,13 +32,31 @@ class PostListView(generic.ListView):
     ordering = ["-created_on"]
 
 
+class PostDetailView(generic.DetailView):
+    model = Post
+
+
 class AuthorListView(generic.ListView):
     model = Author
     context_object_name = "author_list"
 
 
-class PostDetailView(generic.DetailView):
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
+
+class AuthorPostListView(generic.ListView):
     model = Post
+    template_name = 'blog/author_post_list.html'
+    
+    def get_queryset(self):
+        self.author = get_object_or_404(Author, pk=self.kwargs["pk"])
+        return Post.objects.filter(author=self.author)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["author"] = self.author
+        return context
 
 
 
