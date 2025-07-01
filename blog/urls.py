@@ -8,7 +8,7 @@ urlpatterns = [
     path("post/<int:pk>/", views.PostDetailView.as_view(), name="blog_detail"),
     path("authors/", views.AuthorListView.as_view(), name="blog_authors"),
     path("author/<int:pk>/", views.AuthorDetailView.as_view(), name="blog_author_detail"),
-    path("author/<int:pk>/posts/<int:pkey>", views.AuthorPostListView.as_view(), name="blog_author_posts"),
+    path("author/<int:pk>/posts", views.AuthorPostListView.as_view(), name="blog_author_posts"),
     #re_path(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),                    #same as above
     
 ]
