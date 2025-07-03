@@ -14,6 +14,6 @@
             <p style="margin-top: 0;">{{ comment.body | slice:":400" }}</p>
         {% endfor %}
     {% else %}
-        <p>No posts</p>
+        <p>User has no comments</p>
     {% endif %}
 {% endblock page_content %}
