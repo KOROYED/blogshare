@@ -4,9 +4,12 @@ from .models import Post, Category, Author, Comment
 from django.views import generic
 
 def blog_index(request):
-    posts = Post.objects.all().order_by("-created_on")                                              # - in -created_on  reverses arrangment of objects by order_by
+    num_visits = request.session.get('num_visits', 0)
+    num_visits += 1
+    request.session['num_visits'] = num_visits
+
     context = {
-        "posts": posts,
+        'num_visits': num_visits,
     }
     return render(request, "blog/index.html", context=context)
 
