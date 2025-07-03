@@ -7,7 +7,7 @@
 
 {% block page_content %}
     <small>
-        {{ post.created_on.date }} | Categories:
+        {{ post.created_on.date }} by <a href="{% url 'blog_author_detail' post.author.pk %}">{{ post.author.first_name }} {{ post.author.last_name }}</a> | Categories:
         {% for category in post.category.all %}
             <a href="{% url 'blog_category' category.name %}">
                 {{ category.name }}
