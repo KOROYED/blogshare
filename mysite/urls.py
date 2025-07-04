@@ -31,3 +31,7 @@ urlpatterns += [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)      # using static() to add URL mapping to serve static files during dev
+
+urlpatterns += [                                                   # Add Django site authentication urls (for login, logout, password management)
+    path('accounts/', include('django.contrib.auth.urls')), 
+]
