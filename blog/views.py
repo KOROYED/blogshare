@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import Post, Category, Author, Comment
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def blog_index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -20,7 +21,7 @@ class PostByCategoryListView(generic.ListView):
     
     def get_queryset(self):
         self.category = get_object_or_404(Category, name=self.kwargs["category"])
-        return Post.objects.filter(category=self.category)
+        return Post.objects.filter(category=self.category).order_by('-created_on')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,7 +45,7 @@ class AuthorListView(generic.ListView):
     context_object_name = "author_list"
 
 
-class AuthorDetailView(generic.DetailView):
+class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Author
 
 
@@ -54,7 +55,7 @@ class AuthorPostListView(generic.ListView):
     
     def get_queryset(self):
         self.author = get_object_or_404(Author, pk=self.kwargs["pk"])
-        return Post.objects.filter(author=self.author)
+        return Post.objects.filter(author=self.author).order_by('-created_on')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -70,7 +71,7 @@ class AuthorCommentListView(generic.ListView):
 
     def get_queryset(self):
         self.author = get_object_or_404(Author, pk=self.kwargs["pk"])
-        return Comment.objects.filter(author=self.author)
+        return Comment.objects.filter(author=self.author).order_by('-created_on')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

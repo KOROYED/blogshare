@@ -4,13 +4,25 @@
         <meta charset="utf-8">
         <title>BlogShare</title>
         <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     </head>
     <body>
         <h1>BlogShare</h1>
         <a href="{% url "blog_index" %}">Home</a>
         <a href="{% url "blog_posts" %}">All posts</a>
         <a href="{% url "blog_authors" %}">All authors</a>
-        <hr>
+        <div class="login-logout">
+            {% if user.is_authenticated %}
+                <p class="login-logout-user">User: <a href="{% url 'blog_author_detail' user.pk %}">{{ user.get_username }}</p></a>
+                <form class="login-logout-button" id="logout-form" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" >Logout</button>
+                </form>
+            {% else %}
+                <p class="login-logout-button"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>        {# ?next= is appended to redirect back to (next path) after (url path) #}
+            {% endif %}
+        </div>
         {% block page_title %}{% endblock page_title %}
         {% block page_content %}{% endblock page_content %}
         <hr>

@@ -19,7 +19,7 @@
     <h3>Comments:</h3>
     {% for comment in post.comments.all %}
         <p>
-            On {{ comment.created_on }} <b>{{ comment.author }}</b> wrote:
+            On {{ comment.created_on }} <a href="{% url 'blog_author_detail' post.author.pk %}">{{ comment.author.first_name }} {{ post.author.last_name }}</a> wrote:
         </p>
         <p style="margin-top: 0;">
             {{ comment.body }}
