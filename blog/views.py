@@ -4,6 +4,10 @@ from .models import Post, Category, Author, Comment
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .forms import SignUpForm
+
 def blog_index(request):
     num_visits = request.session.get('num_visits', 0)
     num_visits += 1
@@ -62,6 +66,7 @@ class AuthorPostListView(generic.ListView):
         context["author"] = self.author
         return context
 
+
 class AuthorCommentListView(generic.ListView):
     model = Comment
     template_name = 'blog/author_comment_list.html'
@@ -78,6 +83,11 @@ class AuthorCommentListView(generic.ListView):
         context["author"] = self.author
         return context
 
+
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
 
 # def blog_detail(request, pk):
 #     post = Post.objects.get(pk=pk)                                                                  # pk = primary key
