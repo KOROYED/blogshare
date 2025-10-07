@@ -10,6 +10,7 @@ urlpatterns = [
     path("author/<int:pk>/", views.AuthorDetailView.as_view(), name="blog_author_detail"),
     path("author/<int:pk>/posts", views.AuthorPostListView.as_view(), name="blog_author_posts"),
     path("author/<int:pk>/comments", views.AuthorCommentListView.as_view(), name="blog_author_comments"),
+    path("signup/", views.SignUpView.as_view(), name="blog_signup")
     #re_path(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),                    #same as above
     
 ]
