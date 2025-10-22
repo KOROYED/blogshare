@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.urls import reverse
 
 from django.db.models import UniqueConstraint                                   # Constrains fields to unique values
@@ -30,7 +31,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('Author',on_delete=models.RESTRICT, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.RESTRICT, null=True)
     body = models.TextField()
     category = models.ManyToManyField(Category, help_text="Select a category for this post")
     created_on = models.DateTimeField(auto_now_add=True)                        # auto_now_add assigns the current date whenever you create an instance of this class
@@ -50,7 +51,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey('Author',on_delete=models.RESTRICT, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.RESTRICT, null=True)
     body = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     created_on = models.DateTimeField(auto_now_add=True)
@@ -69,12 +70,12 @@ class Comment(models.Model):
     display_body.short_description = 'View of Comment'
 
 
-class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+# class Author(models.Model):
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
     
-    def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
+#     def __str__(self):
+#         return f"{self.last_name}, {self.first_name}"
     
-    def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+#     def get_absolute_url(self):
+#         return reverse('author-detail', args=[str(self.id)])

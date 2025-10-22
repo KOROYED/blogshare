@@ -9,7 +9,7 @@
     {% if author_list %}
         {% for author in author_list %}
         <li>
-            <a href="{% url 'blog_author_detail' author.pk %}">{{author.first_name}} {{author.last_name}}</a>
+            <a href="{% url 'blog_author_detail' author.pk %}">{{ author.first_name }} {{ author }}</a>
         </li>
         {% endfor %}
     {% else %}

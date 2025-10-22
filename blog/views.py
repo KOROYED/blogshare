@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Post, Category, Author, Comment
+from .models import Post, Category, Comment
+from django.contrib.auth.models import User
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .forms import SignUpForm
 
@@ -45,12 +45,14 @@ class PostDetailView(generic.DetailView):
 
 
 class AuthorListView(generic.ListView):
-    model = Author
+    model = User
     context_object_name = "author_list"
+    template_name = 'blog/author_list.html'
 
 
 class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Author
+    model = User
+    template_name = 'blog/author_detail.html'
 
 
 class AuthorPostListView(generic.ListView):
@@ -58,7 +60,7 @@ class AuthorPostListView(generic.ListView):
     template_name = 'blog/author_post_list.html'
     
     def get_queryset(self):
-        self.author = get_object_or_404(Author, pk=self.kwargs["pk"])
+        self.author = get_object_or_404(User, pk=self.kwargs["pk"])
         return Post.objects.filter(author=self.author).order_by('-created_on')
     
     def get_context_data(self, **kwargs):
@@ -75,7 +77,7 @@ class AuthorCommentListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        self.author = get_object_or_404(Author, pk=self.kwargs["pk"])
+        self.author = get_object_or_404(User, pk=self.kwargs["pk"])
         return Comment.objects.filter(author=self.author).order_by('-created_on')
     
     def get_context_data(self, **kwargs):
@@ -84,7 +86,7 @@ class AuthorCommentListView(generic.ListView):
         return context
 
 
-class SignUpView(CreateView):
+class SignUpView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"

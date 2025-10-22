@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Author, Category, Post, Comment
+from .models import Category, Post, Comment
+from django.contrib.auth.models import User
 
 #admin.site.register(Post)
 #admin.site.register(Author)
@@ -9,9 +10,6 @@ admin.site.register(Category)
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name')
-
-
-admin.site.register(Author, AuthorAdmin)
 
 
 @admin.register(Post)                                           # Register the Admin classes for Post using the decorator     
