@@ -7,7 +7,7 @@
 
 {% block page_content %}
     <small>
-        {{ post.created_on.date }} by <a href="{% url 'blog_author_detail' post.author.pk %}">{{ post.author.first_name }} {{ post.author.last_name }}</a> | Categories:
+        {{ post.created_on.date }} by <a href="{% url 'blog_author_detail' post.author.pk %}">{{ post.author }}</a> | Categories:
         {% for category in post.category.all %}
             <a href="{% url 'blog_category' category.name %}">
                 {{ category.name }}
@@ -19,7 +19,7 @@
     <h3>Comments:</h3>
     {% for comment in post.comments.all %}
         <p>
-            On {{ comment.created_on }} <a href="{% url 'blog_author_detail' post.author.pk %}">{{ comment.author.first_name }} {{ post.author.last_name }}</a> wrote:
+            On {{ comment.created_on }} <a href="{% url 'blog_author_detail' post.author.pk %}">{{ comment.author }}</a> wrote:
         </p>
         <p style="margin-top: 0;">
             {{ comment.body }}
