@@ -25,4 +25,15 @@
             {{ comment.body }}
         </p>
     {% endfor %}
+
+    <h4>Write a comment:</h4>
+    <form method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            {{ form.as_p }}
+            <button type="submit">Submit Comment</button>
+        {% else %}
+            <p>Login to comment</p>
+        {% endif %}
+    </form>
 {% endblock page_content %}

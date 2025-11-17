@@ -8,7 +8,7 @@
 {% block page_content %}
     {% if post_list %}
         {% for post in post_list %}
-            <h3><a href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a></h3>                          {# urls.py #}
+            <h3><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h3>                          {# urls.py #}
             <small>
                 {{ post.created_on.date }} by <a href="{% url 'blog_author_detail' post.author.pk %}">{{ post.author }}</a> | Categories:
                 {% for category in post.category.all %}

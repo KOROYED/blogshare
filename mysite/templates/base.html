@@ -14,7 +14,7 @@
         <a href="{% url "blog_authors" %}">All authors</a>
         <div class="login-logout">
             {% if user.is_authenticated %}
-                <p class="login-logout-user">User: {{ request.user }}</p></a>
+                <p class="login-logout-user">User: {{ request.user }}</p>
                 <form class="login-logout-button" id="logout-form" method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" >Logout</button>
