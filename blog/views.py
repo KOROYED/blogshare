@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from .models import Post, Category, Comment
 from django.contrib.auth.models import User
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
-from .forms import SignUpForm
+from .forms import SignUpForm, CommentForm
 
 def blog_index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -42,6 +43,27 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
+    template_name = 'blog/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.author = self.request.user
+            comment.save()
+            return redirect(self.object.get_absolute_url())
+        else:
+            context = self.get_context_data(**kwargs)
+            context['form'] = form
+            return self.render_to_response(context)
 
 
 class AuthorListView(generic.ListView):
@@ -90,6 +112,9 @@ class SignUpView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+
+
 
 # def blog_detail(request, pk):
 #     post = Post.objects.get(pk=pk)                                                                  # pk = primary key

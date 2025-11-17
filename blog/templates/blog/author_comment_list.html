@@ -9,7 +9,7 @@
     {% if comment_list %}
         {% for comment in comment_list %}
             <p>
-                In <a href="{% url 'blog_post_detail' comment.post.pk %}">{{ comment.post.title }}</a> on: {{comment.created_on}}
+                In <a href="{% url 'post-detail' comment.post.pk %}">{{ comment.post.title }}</a> on: {{comment.created_on}}
             </p>
             <p style="margin-top: 0;">{{ comment.body | slice:":400" }}</p>
         {% endfor %}
