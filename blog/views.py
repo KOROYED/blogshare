@@ -7,7 +7,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
-from .forms import SignUpForm, CommentForm
+from .forms import SignUpForm, CommentForm, CreatePostForm
 
 def blog_index(request):
     num_visits = request.session.get('num_visits', 0)
@@ -64,6 +64,15 @@ class PostDetailView(generic.DetailView):
             context = self.get_context_data(**kwargs)
             context['form'] = form
             return self.render_to_response(context)
+
+
+class CreatePost(generic.CreateView):
+    model = Post
+    form_class = CreatePostForm
+    template_name = "blog/create_post.html"
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class AuthorListView(generic.ListView):

@@ -6,6 +6,7 @@ urlpatterns = [
     path("category/<category>/", views.PostByCategoryListView.as_view(), name="blog_category"),
     path("posts/", views.PostListView.as_view(), name="blog_posts"),
     path("post/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
+    path("createpost/", views.CreatePost.as_view(), name="create_post"),
     path("authors/", views.AuthorListView.as_view(), name="blog_authors"),
     path("author/<int:pk>/", views.AuthorDetailView.as_view(), name="blog_author_detail"),
     path("author/<int:pk>/posts", views.AuthorPostListView.as_view(), name="blog_author_posts"),
