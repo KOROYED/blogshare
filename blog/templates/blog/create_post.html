@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>Create Post</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    <form method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for errors in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+            <button type="submit">Post!</button>
+        {% else %}
+            Login to create posts
+        {% endif %}
+    </form>
+{% endblock page_content %}
