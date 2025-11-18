@@ -17,6 +17,7 @@
                 <form class="login-logout-button" id="logout-form" method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" >Logout</button>
+                <a href="{% url "create_post" %}">Create Post</a>
                 </form>
             {% else %}
                 <p class="login-logout-button">
