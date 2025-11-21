@@ -1,0 +1,14 @@
+@import "tailwindcss";
+.login-logout{
+    margin-top: 20px;
+}
+.login-logout-user{
+    display: inline;
+}
+.login-logout-button{
+    display: inline;
+}
+.create-post{
+    width: 500px;
+    height: 200px;
+}
