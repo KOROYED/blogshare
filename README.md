@@ -1,7 +1,12 @@
 # BlogShare
  
 A multi-user blogging platform built with Django. Users can create accounts, write and publish posts, comment on other user's posts.
- 
+
+## Screenshots
+
+<img width="1891" height="747" alt="image" src="https://github.com/user-attachments/assets/612ced02-d484-474d-ae8c-865a42078913" />
+<img width="1874" height="967" alt="image" src="https://github.com/user-attachments/assets/873b25cf-bf85-4af2-a173-30537eee96d9" />
+
 ## Features
  
 - User accounts (sign up, log in, log out)
